@@ -5,12 +5,22 @@ const button = document.querySelector("#criar-tarefa")
 function createTask(){
 
 const task = document.createElement('li')
+if(input.value != ''){
 task.innerText = input.value
 list.appendChild(task)
 input.value = ''
 }
+}
 
 button.addEventListener('click', createTask)
 
+function grayBg(event){
+    if(event.target.id != 'lista-tarefas'){
+    const target = event.target
+    target.style.backgroundColor = 'grey'
+}
+}
+
+list.addEventListener('click', grayBg)
 
 console.log(list)
