@@ -3,6 +3,7 @@ const input = document.querySelector('#texto-tarefa')
 const button = document.querySelector("#criar-tarefa")
 const button2 = document.querySelector("#apaga-tudo")
 const button3 = document.querySelector("#remover-finalizados")
+const button4 = document.querySelector("#salvar-tarefas")
 
 
 function createTask(){
@@ -52,7 +53,19 @@ function removeCompleted(){
     }
 }
 
+function save(){
+    let list = document.getElementById('lista-tarefas').innerHTML
+    localStorage.setItem('list', list)
+}
 
+function onloadStorage(){
+    let listContent = localStorage.getItem('list')
+    let list =  document.getElementById('lista-tarefas')
+    list.innerHTML = listContent
+}
+
+window.onload = onloadStorage
+button4.addEventListener('click', save)
 button3.addEventListener('click', removeCompleted)
 button2.addEventListener('click', apagar)
 list.addEventListener('click', grayBg)
