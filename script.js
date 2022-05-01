@@ -1,6 +1,9 @@
 const list = document.querySelector('#lista-tarefas')
 const input = document.querySelector('#texto-tarefa')
 const button = document.querySelector("#criar-tarefa")
+const button2 = document.querySelector("#apaga-tudo")
+const button3 = document.querySelector("#remover-finalizados")
+
 
 function createTask(){
 
@@ -37,9 +40,21 @@ function strikethrough(event){
         clickTarget.classList.remove('completed')
     }
 }
+function apagar(){
+        list.innerHTML = ''
+}
+
+function removeCompleted(){
+    const completed = document.querySelectorAll('.completed')
+    for(i = 0; i< completed.length; i+= 1){
+        let completedToErase = document.querySelector('.completed')
+        completedToErase.remove()
+    }
+}
 
 
-
+button3.addEventListener('click', removeCompleted)
+button2.addEventListener('click', apagar)
 list.addEventListener('click', grayBg)
 list.addEventListener('dblclick', strikethrough)
 
