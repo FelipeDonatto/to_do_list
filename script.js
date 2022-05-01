@@ -20,7 +20,7 @@ function grayBg(event){
     const whitebg = document.querySelectorAll('li')
     if(allLi > 0){
         for(let i = 0; i<allLi; i+= 1){
-            whitebg[i].style.backgroundColor = 'white'
+            whitebg[i].style = ''
         }
     }
     const target = event.target
@@ -28,6 +28,18 @@ function grayBg(event){
 }
 }
 
-list.addEventListener('click', grayBg)
+function strikethrough(event){
+    const clickTarget = event.target
+    const trueOrNot = clickTarget.classList.contains('completed')
+    if(event.target.id != 'lista-tarefas' && trueOrNot == false){
+    clickTarget.classList.add('completed')
+    }else if(trueOrNot == true){
+        clickTarget.classList.remove('completed')
+    }
+}
 
-console.log(list)
+
+
+list.addEventListener('click', grayBg)
+list.addEventListener('dblclick', strikethrough)
+
