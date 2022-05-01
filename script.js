@@ -4,6 +4,9 @@ const button = document.querySelector("#criar-tarefa")
 const button2 = document.querySelector("#apaga-tudo")
 const button3 = document.querySelector("#remover-finalizados")
 const button4 = document.querySelector("#salvar-tarefas")
+const button5 = document.querySelector("#mover-cima")
+const button6 = document.querySelector("#mover-baixo")
+const button7 = document.querySelector('#remover-selecionado')
 
 
 function createTask(){
@@ -25,10 +28,12 @@ function grayBg(event){
     if(allLi > 0){
         for(let i = 0; i<allLi; i+= 1){
             whitebg[i].style = ''
+            whitebg[i].id = ''
         }
     }
     const target = event.target
-    target.style.backgroundColor = 'grey'
+    
+    target.id = 'selected'
 }
 }
 
@@ -64,7 +69,49 @@ function onloadStorage(){
     list.innerHTML = listContent
 }
 
+function moveDown(){
+    if(document.querySelector('#selected')&&document.querySelector('#selected').nextElementSibling){
+const selected = document.querySelector('#selected')
+let array= []
+array.push(selected.innerText)
+array.push(selected.nextElementSibling.innerText)
+selected.innerText = array[1]
+selected.id = ''
+selected.nextElementSibling.innerText = array[0]
+selected.nextElementSibling.id = 'selected'
+console.log(array)
+    }
+}
+
+function moveUp(){
+    if(document.querySelector('#selected')&& document.querySelector('#selected').previousElementSibling){
+    const selected = document.querySelector('#selected')
+    let array= []
+    array.push(selected.innerText)
+    array.push(selected.previousElementSibling.innerText)
+    selected.innerText = array[1]
+    selected.id = ''
+    selected.previousElementSibling.innerText = array[0]
+    selected.previousElementSibling.id = 'selected'
+    console.log(array)
+    }
+    }
+
+function removeSelected(){
+    const selected = document.querySelectorAll('#selected')
+    for(i = 0; i< selected.length; i+= 1){
+        let completedToErase = document.querySelector('#selected')
+        completedToErase.remove()
+    }
+}
+
+
+
 window.onload = onloadStorage
+
+button7.addEventListener('click', removeSelected)
+button6.addEventListener('click', moveDown)
+button5.addEventListener('click', moveUp)
 button4.addEventListener('click', save)
 button3.addEventListener('click', removeCompleted)
 button2.addEventListener('click', apagar)
